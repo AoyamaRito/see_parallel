@@ -60,11 +60,11 @@ func (q *Queue) Size() int {
 }
 
 func (q *Queue) getQueueFile() string {
-	homeDir, err := os.UserHomeDir()
+	wd, err := os.Getwd()
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(homeDir, ".see_parallel", "queue.json")
+	return filepath.Join(wd, ".see_parallel", "queue.json")
 }
 
 func (q *Queue) saveToFile() {

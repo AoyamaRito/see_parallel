@@ -20,6 +20,8 @@ func main() {
 		handleQueueCommand()
 	case "api":
 		handleAPICommand()
+	case "context":
+		handleContextCommand()
 	default:
 		fmt.Printf("Unknown command: %s\n", os.Args[1])
 		printUsage()
@@ -73,13 +75,47 @@ func handleAPICommand() {
 	cli.SetAPIKey(apiKey)
 }
 
+func handleContextCommand() {
+	if len(os.Args) < 3 {
+		printContextUsage()
+		os.Exit(1)
+	}
+
+	switch os.Args[2] {
+	case "set":
+		if len(os.Args) < 4 {
+			fmt.Println("エラー: 文脈情報を指定してください")
+			os.Exit(1)
+		}
+		context := os.Args[3]
+		cli.SetContext(context)
+	case "get":
+		cli.GetContext()
+	case "clear":
+		cli.ClearContext()
+	default:
+		printContextUsage()
+		os.Exit(1)
+	}
+}
+
 func printUsage() {
 	fmt.Println("Usage:")
 	fmt.Println("  see_parallel api set \"<API_KEY>\"")
+	fmt.Println("  see_parallel context set \"文脈情報\"")
+	fmt.Println("  see_parallel context get")
+	fmt.Println("  see_parallel context clear")
 	fmt.Println("  see_parallel queue '[\"質問\", \"ファイル1\", \"ファイル2\", ...]'")
 	fmt.Println("  see_parallel queue run [--parallel N]")
 	fmt.Println("  see_parallel queue list")
 	fmt.Println("  see_parallel queue clear")
+}
+
+func printContextUsage() {
+	fmt.Println("Context commands:")
+	fmt.Println("  see_parallel context set \"文脈情報\"")
+	fmt.Println("  see_parallel context get")
+	fmt.Println("  see_parallel context clear")
 }
 
 func printAPIUsage() {

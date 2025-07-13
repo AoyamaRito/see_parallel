@@ -40,7 +40,13 @@ func (g *GeminiClient) Analyze(question, content string, deep bool) (string, err
 		model = g.client.GenerativeModel("gemini-1.5-flash")
 	}
 
-	prompt := fmt.Sprintf("%s\n\n%s", question, content)
+	contextInfo := config.GetContext()
+	var prompt string
+	if contextInfo != "" {
+		prompt = fmt.Sprintf("【文脈情報】\n%s\n\n【質問】\n%s\n\n【コンテンツ】\n%s", contextInfo, question, content)
+	} else {
+		prompt = fmt.Sprintf("%s\n\n%s", question, content)
+	}
 	
 	resp, err := model.GenerateContent(g.ctx, genai.Text(prompt))
 	if err != nil {

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"see_parallel/internal/analyzer"
+	"see_parallel/internal/config"
 	"see_parallel/internal/queue"
 )
 
@@ -85,6 +86,10 @@ func RunQueue(parallel int) {
 		return
 	}
 
+	context := config.GetContext()
+	if context != "" {
+		fmt.Printf("文脈情報: %s\n", context)
+	}
 	fmt.Printf("分析を開始します... (タスク数: %d, 並列数: %d)\n\n", len(tasks), parallel)
 
 	results, duration := analyzer.RunParallel(tasks, parallel)

@@ -24,7 +24,7 @@ go.work.sum
 # Binary
 see_parallel
 
-# Config directory
+# Config directory (per project)
 .see_parallel/
 
 # IDE

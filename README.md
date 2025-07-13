@@ -57,6 +57,23 @@ export GEMINI_API_KEY="your-api-key"
 ./see_parallel queue clear
 ```
 
+### 文脈情報の設定
+```bash
+# プロジェクトの文脈を設定
+./see_parallel context set "REACTのプロジェクトです"
+
+# 文脈の確認
+./see_parallel context get
+
+# 文脈のクリア
+./see_parallel context clear
+```
+
+## ファイル保存場所
+- APIキー: `~/.see_parallel/config` (グローバル)
+- キュー: `./see_parallel/queue.json` (プロジェクト毎)
+- 文脈情報: `./see_parallel/context` (プロジェクト毎)
+
 ## モデル
 - 通常: Gemini 2.0 Flash Lite
 - "deep"指定時: Gemini 2.0 Flash
